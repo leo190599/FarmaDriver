@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,7 +22,10 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
     [SerializeField]
     private int quantidadeDeDinheiro = 100;
     [SerializeField]
+    private ScriptHospital hospital;
+    [SerializeField]
     private int PrecoCarrinho=100;
+    private List<GameObject> listaClientesAtivos;
     [Header("Eventos")]
     public UnityAction eventosAtualizacaoDeCarrinhosLivres;
     public UnityAction eventosAtualizacaoDeDinheiro;
@@ -35,6 +39,7 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
         if(gerenciadorDeCarrinhosSingleton==null)
         {
             gerenciadorDeCarrinhosSingleton = this;
+            listaClientesAtivos = new List<GameObject>();
         }
         else
         {
@@ -49,6 +54,15 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
         {
             gerenciadorDeCarrinhosSingleton=null;
         }
+    }
+    public void ReceberPagamento()
+    {
+        Debug.Log("Pagamento recebido");
+    }
+
+    public void SetHospital(ScriptHospital hospital)
+    {
+        this.hospital = hospital;
     }
 
     public void comprarCarrinho()
@@ -82,6 +96,15 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
             {
                 eventosFalhaCompraDeCarrinhos.Invoke();
             }
+        }
+    }
+    public void EnviarCarrinhoParaEntrega(GameObject alvo)
+    {
+        if(numeroDeCarrinhosLivres>0 && !listaClientesAtivos.Contains(alvo))
+        {
+            listaClientesAtivos.Add(alvo);
+            hospital.instanciarCarrinho(alvo);
+            retirarCarrinhoLivre();
         }
     }
 
@@ -145,13 +168,15 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(listaClientesAtivos.Count);
     }
     public bool ChecarPossibilidadeDeCompra(int valorAGastar) => (valorAGastar <= quantidadeDeDinheiro);
     public int GetQuantidadeDeDinheiro => quantidadeDeDinheiro;
     public int GetQuantidadeTotalDeCarrinhos => numeroTotalDeCarrinhos;
     public int GetQuantidadeDeCarrinhosLivres => numeroDeCarrinhosLivres;
+    public List<GameObject> GetListaClentesAtivos => listaClientesAtivos;
     public int GetPrecoCarrinho => PrecoCarrinho;
+    public ScriptHospital GetHospital => hospital;
     public static GerenciadorDeCarrinhos GetGerenciadorDeCarrinhosSingleton => gerenciadorDeCarrinhosSingleton;
     public static bool ExisteUmGerenciadorDeCarrinhos => gerenciadorDeCarrinhosSingleton != null;
 }
