@@ -966,8 +966,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecea71834c0f2a14581f38da8ad8edcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  precosDosCarrinhos: 64000000c8000000
+  indexPrecosDosCarrinhos: 0
+  numeroTotalDeCarrinhos: 0
   numeroDeCarrinhosLivres: 0
-  quantidadeDeDinheiro: 100
+  quantidadeDeDinheiro: 300
+  PrecoCarrinho: 100
 --- !u!4 &614771077
 Transform:
   m_ObjectHideFlags: 0
@@ -1280,6 +1284,7 @@ GameObject:
   - component: {fileID: 795793967}
   - component: {fileID: 795793966}
   - component: {fileID: 795793965}
+  - component: {fileID: 795793968}
   m_Layer: 0
   m_Name: BtnCompra
   m_TagString: Untagged
@@ -1390,6 +1395,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795793963}
   m_CullTransparentMesh: 1
+--- !u!114 &795793968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795793963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6508d22f7425fbc4fa9b0a1bc272e802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  botao: {fileID: 795793965}
+  textoBotao: {fileID: 1225819853}
 --- !u!1 &824177900
 GameObject:
   m_ObjectHideFlags: 0
