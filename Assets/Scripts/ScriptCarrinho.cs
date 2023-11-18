@@ -12,7 +12,7 @@ public class ScriptCarrinho : MonoBehaviour
     private LayerMask mascaraDeRaio;
 
     [SerializeField]
-        public GameObject alvoDebug;
+    public GameObject alvo;
     
     // Start is called before the first frame update
     void Start()
@@ -29,8 +29,7 @@ public class ScriptCarrinho : MonoBehaviour
     public void IrAteObjetivo(GameObject alvo)
     {
 
-            alvoDebug = alvo;
-
+        this.alvo = alvo;
         Physics.Raycast(new Vector3(alvo.transform.position.x, 1000, alvo.transform.position.z), Vector3.down, out hit, Mathf.Infinity, mascaraDeRaio);
         Debug.Log(hit.collider);
         if (hit.collider != null)
@@ -41,17 +40,17 @@ public class ScriptCarrinho : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (alvoDebug != null)
+        if (alvo != null)
         {
             Gizmos.color = Color.black;
-            Gizmos.DrawLine(new Vector3(alvoDebug.transform.position.x, 1000, alvoDebug.transform.position.z),
-            new Vector3(alvoDebug.transform.position.x, -1000, alvoDebug.transform.position.z));
+            Gizmos.DrawLine(new Vector3(alvo.transform.position.x, 1000, alvo.transform.position.z),
+            new Vector3(alvo.transform.position.x, -1000, alvo.transform.position.z));
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Cliente")
+        if(other.tag=="Cliente" && other.gameObject==alvo)
         {
             Destroy(other.gameObject);
             if(GerenciadorDeCarrinhos.ExisteUmGerenciadorDeCarrinhos)

@@ -12,6 +12,8 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
     [Header("ParametrosDeDesign")]
     [SerializeField]
     private int[] precosDosCarrinhos;
+    [SerializeField]
+    private int valorDeEntrega = 50;
     [Header("ParametrosDeDebug")]
     [SerializeField]
     private int indexPrecosDosCarrinhos=0;
@@ -57,7 +59,8 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
     }
     public void ReceberPagamento()
     {
-        Debug.Log("Pagamento recebido");
+        //Debug.Log("Pagamento recebido");
+        somarDinheiro(valorDeEntrega);
     }
 
     public void SetHospital(ScriptHospital hospital)
@@ -168,7 +171,7 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(listaClientesAtivos.Count);
+        //Debug.Log(listaClientesAtivos.Count);
     }
     public bool ChecarPossibilidadeDeCompra(int valorAGastar) => (valorAGastar <= quantidadeDeDinheiro);
     public int GetQuantidadeDeDinheiro => quantidadeDeDinheiro;
