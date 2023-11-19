@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class ScriptCarrinho : MonoBehaviour
 {
+    
     [SerializeField]
     private NavMeshAgent agent;
     private RaycastHit hit;
@@ -30,12 +31,22 @@ public class ScriptCarrinho : MonoBehaviour
     {
 
         this.alvo = alvo;
+        ScriptCliente clienteAlvo=alvo.GetComponent<ScriptCliente>();
+        if(clienteAlvo!=null)
+        {
+            clienteAlvo.SetCarrinhoParaEntrega(this);
+        }
         Physics.Raycast(new Vector3(alvo.transform.position.x, 1000, alvo.transform.position.z), Vector3.down, out hit, Mathf.Infinity, mascaraDeRaio);
-        Debug.Log(hit.collider);
         if (hit.collider != null)
         {
             agent.SetDestination(hit.point);
         }
+    }
+
+    public void FracassarEntrega()
+    {
+        GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.adicionarCarrinhoLivre();
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()

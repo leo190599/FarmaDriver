@@ -18,6 +18,14 @@ public class GerenciadorMenusInGame : MonoBehaviour
     {
         TrocarMenu();
     }
+    public void TrocarCena(string nomeDaCena)
+    {
+        GerenciadorDeCenas.TrocarDeCena(nomeDaCena);
+    }
+    public void RecarregarCena()
+    {
+        GerenciadorDeCenas.RecarregarCena();
+    }
     // Start is called before the first frame update
     private void OnEnable()
     {
