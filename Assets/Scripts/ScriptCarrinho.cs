@@ -5,12 +5,22 @@ using UnityEngine.AI;
 
 public class ScriptCarrinho : MonoBehaviour
 {
-    
+    [Header("Parametros de design")]
+    private static float velBoost = 30;
+    private static int custoBoost = 25;
+    [Header("Parametros de debug")]
     [SerializeField]
     private NavMeshAgent agent;
     private RaycastHit hit;
     [SerializeField]
     private LayerMask mascaraDeRaio;
+    private bool boostAtivo;
+    [SerializeField]
+    private GameObject particulasEntregaConcluida;
+    [SerializeField]
+    private GameObject particulasFalhaNaEntrega;
+    [SerializeField]
+    private GameObject particulasBoost;
 
     [SerializeField]
     public GameObject alvo;
@@ -25,6 +35,25 @@ public class ScriptCarrinho : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AtivarBoost()
+    {
+        if (agent != null && !boostAtivo)
+        {
+            if (GerenciadorDeCarrinhos.ExisteUmGerenciadorDeCarrinhos)
+            {
+                if (GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.GetQuantidadeDeDinheiro 
+                    >= custoBoost)
+                {
+                    GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.SubtrairDinheiro(custoBoost);
+                    agent.speed = velBoost;
+                    particulasBoost.transform.parent = null;
+                    particulasBoost.SetActive(true);
+                    boostAtivo = true;
+                }
+            }
+        }
     }
 
     public void IrAteObjetivo(GameObject alvo)
@@ -46,6 +75,8 @@ public class ScriptCarrinho : MonoBehaviour
     public void FracassarEntrega()
     {
         GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.adicionarCarrinhoLivre();
+        particulasFalhaNaEntrega.transform.parent = null;
+        particulasFalhaNaEntrega.SetActive(true);
         Destroy(gameObject);
     }
 
@@ -75,6 +106,8 @@ public class ScriptCarrinho : MonoBehaviour
             {
                 GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.adicionarCarrinhoLivre();
                 GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.ReceberPagamento();
+                particulasEntregaConcluida.transform.parent = null;
+                particulasEntregaConcluida.SetActive(true);
                 Destroy(gameObject);
             }
         }

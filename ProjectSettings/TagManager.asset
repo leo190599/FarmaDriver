@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cliente
   - Hospital
+  - Carrinho
   layers:
   - Default
   - TransparentFX

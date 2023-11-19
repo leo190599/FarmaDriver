@@ -25,9 +25,19 @@ public class GerenciadorDeInput : MonoBehaviour
             Physics.Raycast(raio,out hit,Mathf.Infinity,mascaraDeInteratividade);
             if(hit.collider!=null)
             {
-                if(GerenciadorDeCarrinhos.ExisteUmGerenciadorDeCarrinhos)
+                if(GerenciadorDeCarrinhos.ExisteUmGerenciadorDeCarrinhos && hit.collider.tag=="Cliente")
                 {
                     GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.EnviarCarrinhoParaEntrega(hit.collider.gameObject);
+                    return;
+                }
+                if(hit.collider.tag=="Carrinho")
+                {
+                    ScriptCarrinho carrinhoAlvo=hit.collider.gameObject.GetComponent<ScriptCarrinho>();
+                    if(carrinhoAlvo!=null)
+                    {
+                        carrinhoAlvo.AtivarBoost();
+                    }
+                    return;
                 }
             }
         }
