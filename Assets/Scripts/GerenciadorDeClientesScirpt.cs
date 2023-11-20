@@ -48,6 +48,7 @@ public class GerenciadorDeClientesScirpt : MonoBehaviour
     }
     public void LiberarInstanciadorDeCliente(InstanciadorDeCliente instanciadorASerLiberado)
     {
+       // Debug.Log(instanciadorASerLiberado);
         instanciadorDeClientesOcupados.Remove(instanciadorASerLiberado);
         instanciadoresDeClientesLivres.Add(instanciadorASerLiberado);
     }
@@ -73,6 +74,6 @@ public class GerenciadorDeClientesScirpt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(instanciadoresDeClientesLivres.Count);
     }
 }

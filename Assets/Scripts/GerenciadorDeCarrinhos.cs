@@ -103,9 +103,9 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
     }
     public void EnviarCarrinhoParaEntrega(GameObject alvo)
     {
-        if(numeroDeCarrinhosLivres>0 && !listaClientesAtivos.Contains(alvo))
+        if(numeroDeCarrinhosLivres>0 && listaClientesAtivos.Contains(alvo))
         {
-            listaClientesAtivos.Add(alvo);
+            listaClientesAtivos.Remove(alvo);
             hospital.instanciarCarrinho(alvo);
             retirarCarrinhoLivre();
         }
@@ -171,7 +171,7 @@ public class GerenciadorDeCarrinhos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(listaClientesAtivos.Count);
+       // Debug.Log(listaClientesAtivos.Count);
     }
     public bool ChecarPossibilidadeDeCompra(int valorAGastar) => (valorAGastar <= quantidadeDeDinheiro);
     public int GetQuantidadeDeDinheiro => quantidadeDeDinheiro;
