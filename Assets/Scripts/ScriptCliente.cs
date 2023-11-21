@@ -92,13 +92,17 @@ public class ScriptCliente : MonoBehaviour
     }
     private void OnDestroy()
     {
-
-        if (GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.GetListaClentesAtivos.Contains(this.gameObject))
+        if (GerenciadorDeCarrinhos.ExisteUmGerenciadorDeCarrinhos)
         {
-            GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.GetListaClentesAtivos.Remove(this.gameObject);
-            //instanciadorDeClientePai.LiberarInstanciador();
+            if (GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.GetListaClentesAtivos.Contains(this.gameObject))
+            {
+                GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.GetListaClentesAtivos.Remove(this.gameObject);
+                //instanciadorDeClientePai.LiberarInstanciador();
+            }
         }
-        if (instanciadorDeClientePai!=null)
-        instanciadorDeClientePai.LiberarInstanciador();
+        if (instanciadorDeClientePai != null)
+        {
+            instanciadorDeClientePai.LiberarInstanciador();
+        }
     }
 }
