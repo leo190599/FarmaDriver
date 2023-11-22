@@ -22,6 +22,8 @@ public class ScriptCarrinho : MonoBehaviour
     [SerializeField]
     private GameObject particulasBoost;
 
+    private bool fezAEntrega = false;
+
     [SerializeField]
     public GameObject alvo;
     
@@ -95,12 +97,13 @@ public class ScriptCarrinho : MonoBehaviour
         if(other.tag=="Cliente" && other.gameObject==alvo)
         {
             Destroy(other.gameObject);
+            fezAEntrega = true;
             if(GerenciadorDeCarrinhos.ExisteUmGerenciadorDeCarrinhos)
             {
                 agent.SetDestination(GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.GetHospital.GetCoordenadaDeRetornoNavmesh);
             }
         }
-        else if(other.tag=="Hospital")
+        else if(other.tag=="Hospital" && fezAEntrega)
         {
             if(GerenciadorDeCarrinhos.ExisteUmGerenciadorDeCarrinhos)
             {
