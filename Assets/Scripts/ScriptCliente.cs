@@ -36,9 +36,12 @@ public class ScriptCliente : MonoBehaviour
 
     private void Start()
     {
-        corrotinaPerderEntrega = CorrotinaPerderEntrega();
-        StartCoroutine(corrotinaPerderEntrega);
-        tempoParaEntrega = tempoInicialParaEntrega;
+        if (GerenciadorDeClientesScirpt.GetGerenciadorDeClientesSingleton.GetHouveAPrimeiraEntrega)
+        {
+            corrotinaPerderEntrega = CorrotinaPerderEntrega();
+            StartCoroutine(corrotinaPerderEntrega);
+            tempoParaEntrega = tempoInicialParaEntrega;
+        }
         animatorCaixinha.speed = velAnimComeco;
         if (!GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.GetListaClentesAtivos.Contains(this.gameObject))
         {
@@ -67,6 +70,10 @@ public class ScriptCliente : MonoBehaviour
            // Debug.Log((tempoParaEntrega / tempoInicialParaEntrega));
             if (tempoParaEntrega<=0)
             {
+                if(GerenciadorDeClientesScirpt.ExisteUmGerenciadorDeClientesSingleton)
+                {
+                    GerenciadorDeClientesScirpt.GetGerenciadorDeClientesSingleton.PerderCaixaAPerder();
+                }
                 Destroy(gameObject);
                 //Debug.Log(carrinhoVindoParaEntrega);
                 if (carrinhoVindoParaEntrega!=null)

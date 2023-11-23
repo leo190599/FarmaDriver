@@ -105,6 +105,10 @@ public class ScriptCarrinho : MonoBehaviour
         }
         else if(other.tag=="Hospital" && fezAEntrega)
         {
+            if(GerenciadorDeClientesScirpt.ExisteUmGerenciadorDeClientesSingleton)
+            {
+                GerenciadorDeClientesScirpt.GetGerenciadorDeClientesSingleton.SetHouveAPrimeiraEntrega(true);
+            }
             if(GerenciadorDeCarrinhos.ExisteUmGerenciadorDeCarrinhos)
             {
                 GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.adicionarCarrinhoLivre();
