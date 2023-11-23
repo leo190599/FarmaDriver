@@ -48,6 +48,10 @@ public class ScriptCarrinho : MonoBehaviour
                 if (GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.GetQuantidadeDeDinheiro 
                     >= custoBoost)
                 {
+                    if(EmissorDeAudio.ExisteUmEmissorDeAudioSingleton)
+                    {
+                        EmissorDeAudio.GetEmissorDeAudioSingleton.ExecutarSomDeBoost();
+                    }
                     GerenciadorDeCarrinhos.GetGerenciadorDeCarrinhosSingleton.SubtrairDinheiro(custoBoost);
                     agent.speed = velBoost;
                     particulasBoost.transform.parent = null;
@@ -105,6 +109,10 @@ public class ScriptCarrinho : MonoBehaviour
         }
         else if(other.tag=="Hospital" && fezAEntrega)
         {
+            if(EmissorDeAudio.ExisteUmEmissorDeAudioSingleton)
+            {
+                EmissorDeAudio.GetEmissorDeAudioSingleton.ExecutarSomDeEntregaFeita();
+            }
             if(GerenciadorDeClientesScirpt.ExisteUmGerenciadorDeClientesSingleton)
             {
                 GerenciadorDeClientesScirpt.GetGerenciadorDeClientesSingleton.SetHouveAPrimeiraEntrega(true);
